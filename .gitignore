@@ -1,0 +1,10 @@
+# Ignore raw datasets, generated datasets, and zip files
+raw/
+dataset/
+dataset.zip
+
+# Ignore python cache and environment files
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+venv/

@@ -1,0 +1,13 @@
+path: /content/dataset
+train: images/train
+val: images/val
+test: images/test
+nc: 7
+names:
+  0: Plastic
+  1: Paper
+  2: Metal
+  3: Organic
+  4: E-waste
+  5: Glass
+  6: Trash
