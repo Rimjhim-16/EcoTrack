@@ -5,7 +5,8 @@ import matplotlib.pyplot as plt
 
 RAW = Path("raw")
 OUT = Path("dataset")
-CLASSES = ["plastic", "paper", "metal", "organic", "ewaste"]
+
+CLASSES = ["plastic", "paper", "metal", "organic", "ewaste", "glass", "trash"]
 MAX_PER_CLASS = 450
 SPLITS = {"train": 0.7, "val": 0.2, "test": 0.1}
 
@@ -34,7 +35,7 @@ for cid, cname in enumerate(CLASSES):
         new_name = f"{cname}_{i:04d}{p.suffix.lower()}"
         shutil.copy(p, OUT / "images" / split / new_name)
         
-        # Write dummy full-image bounding box format: class_id center_x center_y width height
+        
         (OUT / "labels" / split / f"{cname}_{i:04d}.txt").write_text(f"{cid} 0.5 0.5 0.95 0.95\n")
         counts[split][cname] += 1
 
@@ -42,13 +43,12 @@ total = {c: sum(counts[s][c] for s in SPLITS) for c in CLASSES}
 print("Dataset split counts:", counts)
 print("Total per class:", total)
 
-# Generate class distribution chart for slides
-plt.figure(figsize=(7, 4))
-plt.bar(total.keys(), total.values(), color=["#2E86AB", "#F6AE2D", "#9A9A9A", "#58A55C", "#C0392B"])
-plt.title("EcoTrack Dataset Distribution")
+plt.figure(figsize=(9, 4))
+plt.bar(total.keys(), total.values(), color=["#2E86AB", "#F6AE2D", "#9A9A9A", "#58A55C", "#C0392B", "#34495E", "#E67E22"])
+plt.title("EcoTrack Dataset Distribution (7 Classes)")
 plt.ylabel("Images")
 for i, v in enumerate(total.values()):
     plt.text(i, v + 5, str(v), ha="center")
 plt.tight_layout()
 plt.savefig("class_distribution.png", dpi=200)
-print("Saved class_distribution.png successfully!")
+print("Saved class_distribution.png successfully for 7 classes!")
